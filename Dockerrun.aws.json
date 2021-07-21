@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion" : 2,
+    "containerDefinitions" : [
+        {
+            "name":"client",
+            "image": "lennymanyeki/multi-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 64
+        },
+        {
+            "name":"server",
+            "image": "lennymanyeki/multi-server",
+            "hostname": "api",
+            "essential": false,
+            "memory": 64
+        },
+        {
+            "name":"worker",
+            "image": "lennymanyeki/multi-worker",
+            "hostname": "worker",
+            "essential": false,
+            "memory": 64
+        },
+        {
+            "name": "nginx",
+            "image": "lennymanyeki/multi-nginx",
+            "essential": true,
+            "portMappings":[
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"],
+            "memory": 64
+        }
+    ]
+}
